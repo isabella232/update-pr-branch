@@ -288,25 +288,6 @@ describe('getAutoUpdateCandidate()', () => {
 
   test('return null if there is no open PR', async () => {
     const res = await gitLib.getAutoUpdateCandidate([]);
-    expect(utils.log).toHaveBeenCalledWith(
-      'Count of auto-merge enabled PRs: 0',
-    );
-    expect(res).toBe(null);
-  });
-
-  test('return null if there is no auto-merge enabled PR', async () => {
-    const list = [];
-    pullsList.data.forEach((item) => {
-      list.push({
-        ...item,
-        auto_merge: null,
-      });
-    });
-
-    const res = await gitLib.getAutoUpdateCandidate(list);
-    expect(utils.log).toHaveBeenCalledWith(
-      'Count of auto-merge enabled PRs: 0',
-    );
     expect(res).toBe(null);
   });
 
@@ -321,7 +302,7 @@ describe('getAutoUpdateCandidate()', () => {
 
     const res = await gitLib.getAutoUpdateCandidate(prList);
     expect(mockedListReviews).toHaveBeenCalled();
-    expect(utils.log).toHaveBeenCalledTimes(2);
+    expect(utils.log).toHaveBeenCalledTimes(1);
     expect(utils.printFailReason).toHaveBeenCalledTimes(1);
     expect(utils.printFailReason).toHaveBeenCalledWith(
       prList[0].number,
@@ -347,7 +328,7 @@ describe('getAutoUpdateCandidate()', () => {
 
     const res = await gitLib.getAutoUpdateCandidate(prList);
     expect(mockedListReviews).toHaveBeenCalled();
-    expect(utils.log).toHaveBeenCalledTimes(2);
+    expect(utils.log).toHaveBeenCalledTimes(1);
     expect(utils.printFailReason).toHaveBeenCalledTimes(1);
     expect(utils.printFailReason).toHaveBeenCalledWith(
       prList[0].number,

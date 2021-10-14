@@ -145,11 +145,7 @@ export const getAutoUpdateCandidate = async (openPRs) => {
   const requiredApprovalCount = core.getInput('required_approval_count');
   const requirePassedChecks = core.getInput('require_passed_checks').toUpperCase() === 'TRUE';
 
-  // only update `auto merge` enabled PRs
-  const autoMergeEnabledPRs = openPRs.filter((item) => item.auto_merge);
-  log(`Count of auto-merge enabled PRs: ${autoMergeEnabledPRs.length}`);
-
-  for (const pr of autoMergeEnabledPRs) {
+  for (const pr of openPRs) {
     const {
       number: pullNumber,
       head: { sha },
